@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           tmux
-Version:        3.3a
-Release:        3%{?dist}
+Version:        3.6a
+Release:        1%{?dist}
 Summary:        A terminal multiplexer
 
 # Most of the source is ISC licensed; some of the files in compat/ are 2 and
@@ -14,13 +14,15 @@ Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{n
 Source1:        bash_completion_tmux.sh
 
 BuildRequires:  gcc
-BuildRequires:  systemd-devel
-BuildRequires:  libutempter-devel
 BuildRequires:  make
+BuildRequires:  bison
+BuildRequires:  libutempter-devel
 BuildRequires:  pkgconfig(libevent_core) >= 2
-BuildRequires:  pkgconfig(tinfo)
+BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(ncursesw)
+BuildRequires:  pkgconfig(tinfo)
+Obsoletes:      tmux < %{version}-%{release}
 
 %description
 tmux is a "terminal multiplexer."  It enables a number of terminals (or
@@ -32,7 +34,10 @@ as GNU Screen.
 %autosetup
 
 %build
-%configure --enable-systemd
+%configure \
+    --enable-systemd \
+    --enable-utempter \
+    --enable-sixel
 %make_build
 
 
@@ -68,6 +73,10 @@ fi
 %{_datadir}/bash-completion/completions/tmux
 
 %changelog
+* Fri Apr 24 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 3.6a-1
+- Update to 3.6a
+- Rebuilt for AlmaLinux 10
+
 * Sun Feb 12 2023 Filipe Rosset <rosset.filipe@gmail.com> - 3.3a-3
 - Enable support for systemd socket activation fixes rhbz#2158980
 

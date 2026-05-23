@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           tmux
-Version:        3.6a
+Version:        3.6b
 Release:        1%{?dist}
 Summary:        A terminal multiplexer
 
@@ -73,6 +73,9 @@ fi
 %{_datadir}/bash-completion/completions/tmux
 
 %changelog
+* Fri May 22 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 3.6b-1
+- Update to 3.6b
+
 * Fri Apr 24 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 3.6a-1
 - Update to 3.6a
 - Rebuilt for AlmaLinux 10

@@ -1,14 +1,15 @@
 %global _hardened_build 1
 
 Name:           tmux
-Version:        3.6b
+Version:        3.7b
 Release:        1%{?dist}
 Summary:        A terminal multiplexer
 
 # Most of the source is ISC licensed; some of the files in compat/ are 2 and
 # 3 clause BSD licensed.
-License:        ISC and BSD
+License:        ISC AND BSD-2-Clause AND BSD-3-Clause
 URL:            https://tmux.github.io/
+ExclusiveArch:  x86_64 aarch64
 Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 # Examples has been removed - so include the bash_completion here
 Source1:        bash_completion_tmux.sh
@@ -31,7 +32,7 @@ intended to be a simple, modern, BSD-licensed alternative to programs such
 as GNU Screen.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %configure \
@@ -73,6 +74,14 @@ fi
 %{_datadir}/bash-completion/completions/tmux
 
 %changelog
+* Sat Jul 05 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 3.7b-1
+- Update to 3.7b
+- Verified Source0 downloadable
+
+* Thu Jul 03 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 3.6b-1
+- SPDX license: ISC AND BSD-2-Clause AND BSD-3-Clause; add ExclusiveArch: x86_64 aarch64
+- %%autosetup -p1
+
 * Fri May 22 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 3.6b-1
 - Update to 3.6b
 

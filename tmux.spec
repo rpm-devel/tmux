@@ -14,10 +14,16 @@ Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{n
 # Examples has been removed - so include the bash_completion here
 Source1:        bash_completion_tmux.sh
 
+%if 0%{?suse_version}
+%global utempter_pkg utempter-devel
+%else
+%global utempter_pkg libutempter-devel
+%endif
+
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  bison
-BuildRequires:  libutempter-devel
+BuildRequires:  %{utempter_pkg}
 BuildRequires:  pkgconfig(libevent_core) >= 2
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(ncurses)
@@ -75,6 +81,12 @@ fi
 
 %changelog
 * Sat Jul 05 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 3.7b-1
+- Guard libutempter-devel BuildRequires for openSUSE/SLES: package is named
+  utempter-devel there (vs libutempter-devel on RHEL/Fedora family), per
+  openSUSE:Factory tmux.spec; all other BuildRequires (gcc, make, bison,
+  pkgconfig(libevent_core), pkgconfig(libsystemd), pkgconfig(ncurses),
+  pkgconfig(ncursesw), pkgconfig(tinfo)) verified identical across RHEL 7+,
+  AlmaLinux/Rocky/Oracle 8+, Fedora 40+, and openSUSE/SLES
 - Update to 3.7b
 - Verified Source0 downloadable
 
